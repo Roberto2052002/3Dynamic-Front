@@ -1,0 +1,142 @@
+PROMPT FOR REPLIT (FRONT-END ONLY — DO NOT CONNECT ANY BACKEND OR DB)
+
+Build a single-page React + Tailwind landing site for a physiotherapy clinic. Do not use Next.js. Front-end only: no database, no network requests, no Replit DB, and no backend stubs—form submit should just console.log and show a local success message.
+The page uses smooth scroll anchors and a sticky top bar. Include a floating sticky CTA button (bottom-right) that scrolls to the form.
+
+Design & Colors
+
+The background color across the whole site should be a modern grey (use Tailwind’s neutral/stone/zinc scale).
+
+Replit must auto-select all accent colors (buttons, highlights, glows, links, icons) so the site looks modern, clean, and professional.
+
+Accent colors must contrast well with the grey background for readability and accessibility.
+
+Avoid neon or overly playful palettes; keep it medical/athletic and professional.
+
+Global requirements
+
+Mobile-first, responsive, accessible; semantic landmarks; proper headings; alt text; focus styles; skip-to-content link.
+
+Sticky Top Bar with three zones:
+
+Left: Hamburger button that opens a slide-in sidebar (from left). Sidebar contains the logo at top and a list of anchor links to each section (clicking scrolls and closes the drawer).
+
+Center: Logo.
+
+Right: Phone number (tap-to-call link) and a language switch (EN/ES) that toggles the entire UI text.
+
+Smooth scroll; anchor IDs: #home, #products, #reviews, #staff, #about, #contact.
+
+Keep CLS low; lazy-load media; use poster for video; defer non-critical scripts.
+
+Clean, modern medical/athletic look with subtle scroll reveals, rounded cards, soft shadows.
+
+Floating CTA: sticky button at bottom-right that scrolls to #contact; visible on all sections; accessible label.
+
+Front-end only reminder: No API keys, no fetch/axios, no server calls, no Replit DB. Everything is in-memory.
+
+Top Bar & Sidebar details
+
+Top bar stays sticky at top with slight blur/background for readability.
+
+Hamburger → Sidebar (modal drawer):
+
+Drawer contains: clinic logo, and nav links: Home, Products, Reviews, Staff, About, Contact.
+
+Clicking a link closes the drawer and smoothly scrolls to the section.
+
+Drawer must be keyboard navigable, trap focus when open, and close with ESC / overlay click.
+
+Right zone: Phone number as tel: link, plus an EN/ES toggle (switch UI). Use an in-memory dictionary for all labels (nav, headings, buttons, form fields, placeholders, schedule labels, etc.). No external i18n libs required (simple context or hook is fine).
+
+Section order and specs (exactly in this order):
+
+HERO (id="home")
+
+Full-width background video (muted, autoplay, loop, playsinline) with dark overlay.
+
+Over the video: headline, short subhead, primary CTA button that scrolls to #contact.
+
+Provide a poster fallback for performance; ensure text contrast and readability.
+
+PRODUCTS (id="products")
+
+Three cards: Therapy, Recovery, Recovery Room.
+
+Each card: image placeholder, short description, and prominent circular “price bubbles” (pill/badge style) with example prices (e.g., “$99 / session”). Bubbles must be visually distinct and responsive.
+
+Each card includes a secondary action (e.g., “Learn more”) that scrolls to #contact.
+
+REVIEWS (id="reviews")
+
+A continuously auto-scrolling horizontal carousel that moves to the right and loops infinitely.
+
+Each review shows: star rating, short text (1–2 lines), reviewer name/initials.
+
+Must:
+
+Auto-scroll horizontally, pause on hover/focus, swipeable on touch.
+
+Smooth performant animation; no heavy carousel libraries.
+
+Include 8–12 placeholder reviews in EN/ES (translates via language toggle).
+
+STAFF (id="staff")
+
+Exactly two staff profiles; stacked on mobile, side-by-side on desktop.
+
+Each: photo, name, credentials, 1–2 sentence bio.
+
+Subtle hover effect and focus outline.
+
+ABOUT (id="about")
+
+Embedded Google Map (iframe) with placeholder.
+
+Below: address, phone, and email with icons.
+
+Weekly schedule (Mon–Sun) with placeholder hours.
+
+All labels/days must toggle between EN/ES.
+
+CONTACT FORM (id="contact")
+
+Fields: Full Name (required), Email (required/valid), Phone (required).
+
+Concern toggle: two side-by-side buttons “Injury” and “Pain” that glow when selected.
+
+Large textarea: “What’s happening?” (required).
+
+Checkbox (required): “I agree to be contacted.”
+
+Submit button disabled until form is valid.
+
+On submit: console.log payload + show inline success message.
+
+All labels, placeholders, messages must translate EN/ES.
+
+Interactions & polish
+
+Scroll-reveal animations for section headings/cards.
+
+Nav links highlight when their section is in view.
+
+Account for sticky top bar so content isn’t hidden.
+
+Floating CTA always visible with tooltip and accessible label.
+
+SEO & metadata
+
+Basic SEO tags (title/description, social share image placeholder).
+
+Include a commented JSON-LD LocalBusiness block with TODOs (name, logo, phone, address, openingHours).
+
+Deliverables
+
+A single React page/component with all sections in this order: Hero → Products → Reviews → Staff → About → Contact.
+
+Sticky top bar and sticky bottom-right CTA.
+
+Tailwind for styling with modern grey background + Replit-chosen accent colors that look professional.
+
+No DB, no backend, no external i18n libs, minimal dependencies.

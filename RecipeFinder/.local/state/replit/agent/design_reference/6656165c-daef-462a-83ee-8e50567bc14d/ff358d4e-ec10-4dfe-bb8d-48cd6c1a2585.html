@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhysioTherapy Plus - Professional Physical Therapy Services</title>
+    <meta name="description" content="Professional physiotherapy clinic offering therapy, recovery, and wellness services. Expert staff, modern facilities, personalized treatment plans.">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="PhysioTherapy Plus - Professional Physical Therapy Services">
+    <meta property="og:description" content="Professional physiotherapy clinic offering therapy, recovery, and wellness services.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=630">
+    <meta property="og:type" content="website">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                borderRadius: {
+                    lg: "var(--radius)",
+                    md: "calc(var(--radius) - 2px)",
+                    sm: "calc(var(--radius) - 4px)",
+                },
+                colors: {
+                    background: "var(--background)",
+                    foreground: "var(--foreground)",
+                    card: {
+                        DEFAULT: "var(--card)",
+                        foreground: "var(--card-foreground)",
+                    },
+                    popover: {
+                        DEFAULT: "var(--popover)",
+                        foreground: "var(--popover-foreground)",
+                    },
+                    primary: {
+                        DEFAULT: "var(--primary)",
+                        foreground: "var(--primary-foreground)",
+                    },
+                    secondary: {
+                        DEFAULT: "var(--secondary)",
+                        foreground: "var(--secondary-foreground)",
+                    },
+                    muted: {
+                        DEFAULT: "var(--muted)",
+                        foreground: "var(--muted-foreground)",
+                    },
+                    accent: {
+                        DEFAULT: "var(--accent)",
+                        foreground: "var(--accent-foreground)",
+                    },
+                    destructive: {
+                        DEFAULT: "var(--destructive)",
+                        foreground: "var(--destructive-foreground)",
+                    },
+                    border: "var(--border)",
+                    input: "var(--input)",
+                    ring: "var(--ring)",
+                },
+                fontFamily: {
+                    sans: ["Inter", "sans-serif"],
+                }
+            },
+        }
+    };
+    </script>
+    
+    <style>
+        :root {
+            --background: hsl(240 10% 98%);
+            --foreground: hsl(240 10% 9%);
+            --card: hsl(0 0% 100%);
+            --card-foreground: hsl(240 10% 9%);
+            --popover: hsl(0 0% 100%);
+            --popover-foreground: hsl(240 10% 9%);
+            --primary: hsl(221 83% 53%);
+            --primary-foreground: hsl(0 0% 98%);
+            --secondary: hsl(188 78% 41%);
+            --secondary-foreground: hsl(0 0% 98%);
+            --muted: hsl(240 5% 96%);
+            --muted-foreground: hsl(240 4% 46%);
+            --accent: hsl(160 84% 39%);
+            --accent-foreground: hsl(0 0% 98%);
+            --destructive: hsl(0 84% 60%);
+            --destructive-foreground: hsl(0 0% 98%);
+            --border: hsl(240 6% 90%);
+            --input: hsl(240 6% 90%);
+            --ring: hsl(221 83% 53%);
+            --radius: 0.75rem;
+        }
+        
+        .hero-video-overlay {
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6));
+        }
+        
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .reviews-scroll {
+            animation: scroll-horizontal 30s linear infinite;
+        }
+        
+        .reviews-scroll:hover {
+            animation-play-state: paused;
+        }
+        
+        @keyframes scroll-horizontal {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        .sidebar-overlay {
+            backdrop-filter: blur(4px);
+        }
+        
+        .floating-cta {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .price-bubble {
+            background: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--secondary)));
+        }
+        
+        .nav-link.active {
+            color: hsl(var(--primary));
+            border-bottom: 2px solid hsl(var(--primary));
+        }
+    </style>
+</head>
+
+<body class="bg-background text-foreground font-sans">
+    <!-- Skip to content link -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary text-primary-foreground px-4 py-2 rounded-md z-50">
+        <span data-translate="skipToContent">Skip to content</span>
+    </a>
+
+    <!-- Sticky Top Bar -->
+    <!-- @COMPONENT: TopNavigation [hamburger, logo, phone, language toggle] -->
+    <header class="sticky top-0 z-40 bg-card/80 backdrop-blur-md border-b border-border">
+        <nav class="container mx-auto px-4 h-16 flex items-center justify-between" role="navigation" aria-label="Main navigation">
+            <!-- Left: Hamburger -->
+            <button id="hamburger-btn" class="lg:hidden p-2 text-foreground hover:text-primary focus:outline-none focus:ring-2 focus:ring-ring rounded-md" aria-label="Open navigation menu" aria-expanded="false">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+
+            <!-- Center: Logo -->
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                    <svg class="w-5 h-5 text-primary-foreground" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                </div>
+                <span class="text-xl font-bold text-foreground" data-translate="clinicName">PhysioTherapy Plus</span>
+            </div>
+
+            <!-- Right: Phone and Language -->
+            <div class="flex items-center space-x-4">
+                <a href="tel:+1234567890" class="hidden sm:flex items-center space-x-2 text-foreground hover:text-primary transition-colors">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                    </svg>
+                    <span>(123) 456-7890</span>
+                </a>
+                
+                <div class="flex items-center bg-muted rounded-lg p-1">
+                    <button id="lang-en" class="px-2 py-1 text-sm font-medium rounded-md transition-colors language-btn active" data-lang="en">EN</button>
+                    <button id="lang-es" class="px-2 py-1 text-sm font-medium rounded-md transition-colors language-btn" data-lang="es">ES</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Desktop Navigation (hidden on mobile) -->
+        <nav class="hidden lg:block border-t border-border bg-card/60 backdrop-blur-sm">
+            <div class="container mx-auto px-4">
+                <ul class="flex space-x-8 h-12 items-center">
+                    <li><a href="#home" class="nav-link text-sm font-medium text-muted-foreground hover:text-foreground transition-colors" data-translate="navHome">Home</a></li>
+                    <li><a href="#products" class="nav-link text-sm font-medium text-muted-foreground hover:text-foreground transition-colors" data-translate="navProducts">Services</a></li>
+                    <li><a href="#reviews" class="nav-link text-sm font-medium text-muted-foreground hover:text-foreground transition-colors" data-translate="navReviews">Reviews</a></li>
+                    <li><a href="#staff" class="nav-link text-sm font-medium text-muted-foreground hover:text-foreground transition-colors" data-translate="navStaff">Staff</a></li>
+                    <li><a href="#about" class="nav-link text-sm font-medium text-muted-foreground hover:text-foreground transition-colors" data-translate="navAbout">About</a></li>
+                    <li><a href="#contact" class="nav-link text-sm font-medium text-muted-foreground hover:text-foreground transition-colors" data-translate="navContact">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- @END_COMPONENT: TopNavigation -->
+
+    <!-- Sidebar Overlay -->
+    <div id="sidebar-overlay" class="fixed inset-0 z-50 hidden sidebar-overlay bg-black/50" aria-hidden="true"></div>
+
+    <!-- Sidebar -->
+    <!-- @COMPONENT: Sidebar [navigation links, logo, close button] -->
+    <aside id="sidebar" class="fixed top-0 left-0 z-50 w-80 h-full bg-card shadow-2xl transform -translate-x-full transition-transform duration-300 ease-in-out" role="dialog" aria-modal="true" aria-label="Navigation menu">
+        <div class="p-6">
+            <!-- Sidebar Header -->
+            <div class="flex items-center justify-between mb-8">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                        <svg class="w-5 h-5 text-primary-foreground" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <span class="text-lg font-bold" data-translate="clinicName">PhysioTherapy Plus</span>
+                </div>
+                <button id="sidebar-close" class="p-2 text-muted-foreground hover:text-foreground focus:outline-none focus:ring-2 focus:ring-ring rounded-md" aria-label="Close navigation menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav>
+                <ul class="space-y-2">
+                    <li><a href="#home" class="sidebar-link block px-4 py-3 text-foreground hover:bg-muted rounded-lg transition-colors" data-translate="navHome">Home</a></li>
+                    <li><a href="#products" class="sidebar-link block px-4 py-3 text-foreground hover:bg-muted rounded-lg transition-colors" data-translate="navProducts">Services</a></li>
+                    <li><a href="#reviews" class="sidebar-link block px-4 py-3 text-foreground hover:bg-muted rounded-lg transition-colors" data-translate="navReviews">Reviews</a></li>
+                    <li><a href="#staff" class="sidebar-link block px-4 py-3 text-foreground hover:bg-muted rounded-lg transition-colors" data-translate="navStaff">Staff</a></li>
+                    <li><a href="#about" class="sidebar-link block px-4 py-3 text-foreground hover:bg-muted rounded-lg transition-colors" data-translate="navAbout">About</a></li>
+                    <li><a href="#contact" class="sidebar-link block px-4 py-3 text-foreground hover:bg-muted rounded-lg transition-colors" data-translate="navContact">Contact</a></li>
+                </ul>
+            </nav>
+
+            <!-- Phone Number -->
+            <div class="mt-8 pt-6 border-t border-border">
+                <a href="tel:+1234567890" class="flex items-center space-x-3 text-muted-foreground hover:text-foreground transition-colors">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                    </svg>
+                    <span>(123) 456-7890</span>
+                </a>
+            </div>
+        </div>
+    </aside>
+    <!-- @END_COMPONENT: Sidebar -->
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- HERO Section -->
+        <!-- @COMPONENT: HeroSection [background video, headline, CTA] -->
+        <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
+            <!-- Background video showcasing physiotherapy rehabilitation exercises -->
+            <video 
+                class="absolute inset-0 w-full h-full object-cover" 
+                autoplay 
+                muted 
+                loop 
+                playsinline
+                poster="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=1080"
+                data-mock="true"
+            >
+                <source src="https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4" type="video/mp4">
+                <!-- @IMPLEMENTATION: Replace with actual physiotherapy clinic video -->
+            </video>
+            
+            <div class="absolute inset-0 hero-video-overlay"></div>
+            
+            <div class="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 scroll-reveal" data-translate="heroHeadline">
+                    Professional Physical Therapy & Recovery
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 text-gray-200 scroll-reveal" data-translate="heroSubheadline">
+                    Expert care for injury recovery, pain management, and athletic performance enhancement
+                </p>
+                <button class="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-primary/30 scroll-reveal" onclick="scrollToSection('contact')" data-translate="heroCTA">
+                    Schedule Your Consultation
+                </button>
+            </div>
+        </section>
+        <!-- @END_COMPONENT: HeroSection -->
+
+        <!-- PRODUCTS Section -->
+        <!-- @COMPONENT: ProductsSection [service cards with pricing] -->
+        <section id="products" class="py-20 bg-background">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6 scroll-reveal" data-translate="productsHeadline">Our Services</h2>
+                    <p class="text-xl text-muted-foreground max-w-3xl mx-auto scroll-reveal" data-translate="productsSubheadline">
+                        Comprehensive physiotherapy solutions tailored to your recovery and wellness goals
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                    <!-- Therapy Card -->
+                    <div class="bg-card rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 scroll-reveal" data-mock="true">
+                        <!-- Modern physiotherapy treatment session -->
+                        <img src="https://pixabay.com/get/g7938057e5db79d5bd5c6a70ec519f33c8e31a5d94a4cb1b25f41e7c52ed3a3e6634cc915a5da95fed980540db10e39b2196d1ecff131727cee44b267e5a28bcc_1280.jpg" alt="Physical therapy session" class="w-full h-48 object-cover" />
+                        
+                        <div class="p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-2xl font-bold" data-translate="therapyTitle">Physical Therapy</h3>
+                                <div class="price-bubble text-white px-4 py-2 rounded-full font-bold text-lg">
+                                    <span data-translate="therapyPrice">$99/session</span>
+                                </div>
+                            </div>
+                            <p class="text-muted-foreground mb-6" data-translate="therapyDescription">
+                                Personalized treatment plans for injury recovery, movement restoration, and pain relief through evidence-based techniques.
+                            </p>
+                            <button class="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground py-3 rounded-lg font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-secondary" onclick="scrollToSection('contact')" data-translate="learnMore">
+                                Learn More
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Recovery Card -->
+                    <div class="bg-card rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 scroll-reveal" data-mock="true">
+                        <!-- Athlete using recovery equipment -->
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=300" alt="Recovery therapy" class="w-full h-48 object-cover" />
+                        
+                        <div class="p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-2xl font-bold" data-translate="recoveryTitle">Sports Recovery</h3>
+                                <div class="price-bubble text-white px-4 py-2 rounded-full font-bold text-lg">
+                                    <span data-translate="recoveryPrice">$129/session</span>
+                                </div>
+                            </div>
+                            <p class="text-muted-foreground mb-6" data-translate="recoveryDescription">
+                                Advanced recovery protocols for athletes including massage therapy, stretching, and performance optimization.
+                            </p>
+                            <button class="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground py-3 rounded-lg font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-secondary" onclick="scrollToSection('contact')" data-translate="learnMore">
+                                Learn More
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Recovery Room Card -->
+                    <div class="bg-card rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 scroll-reveal" data-mock="true">
+                        <!-- Modern recovery room with equipment -->
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=300" alt="Recovery room" class="w-full h-48 object-cover" />
+                        
+                        <div class="p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-2xl font-bold" data-translate="recoveryRoomTitle">Recovery Room Access</h3>
+                                <div class="price-bubble text-white px-4 py-2 rounded-full font-bold text-lg">
+                                    <span data-translate="recoveryRoomPrice">$49/hour</span>
+                                </div>
+                            </div>
+                            <p class="text-muted-foreground mb-6" data-translate="recoveryRoomDescription">
+                                State-of-the-art recovery facilities with compression therapy, infrared sauna, and relaxation equipment.
+                            </p>
+                            <button class="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground py-3 rounded-lg font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-secondary" onclick="scrollToSection('contact')" data-translate="learnMore">
+                                Learn More
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- @END_COMPONENT: ProductsSection -->
+
+        <!-- REVIEWS Section -->
+        <!-- @COMPONENT: ReviewsCarousel [auto-scrolling horizontal reviews] -->
+        <section id="reviews" class="py-20 bg-muted/30">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6 scroll-reveal" data-translate="reviewsHeadline">What Our Patients Say</h2>
+                    <p class="text-xl text-muted-foreground scroll-reveal" data-translate="reviewsSubheadline">
+                        Real stories from real people who've experienced our care
+                    </p>
+                </div>
+
+                <div class="overflow-hidden">
+                    <div class="reviews-scroll flex space-x-6" style="width: 200%;">
+                        <!-- Review cards - duplicated for infinite scroll -->
+                        <!-- @MAP: reviews.map(review => ( -->
+                        <div class="bg-card rounded-xl p-6 shadow-md min-w-80 flex-shrink-0" data-mock="true">
+                            <div class="flex items-center mb-4">
+                                <div class="flex space-x-1">
+                                    <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                </div>
+                            </div>
+                            <p class="text-foreground mb-4" data-translate="review1Text">"Exceptional care and professionalism. I recovered from my knee injury faster than expected thanks to their personalized treatment plan."</p>
+                            <p class="font-semibold text-muted-foreground" data-translate="review1Author">- Sarah M.</p>
+                        </div>
+
+                        <div class="bg-card rounded-xl p-6 shadow-md min-w-80 flex-shrink-0" data-mock="true">
+                            <div class="flex items-center mb-4">
+                                <div class="flex space-x-1">
+                                    <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                </div>
+                            </div>
+                            <p class="text-foreground mb-4" data-translate="review2Text">"The staff here truly cares about your progress. Modern facilities and evidence-based treatments make all the difference."</p>
+                            <p class="font-semibold text-muted-foreground" data-translate="review2Author">- Mike R.</p>
+                        </div>
+
+                        <div class="bg-card rounded-xl p-6 shadow-md min-w-80 flex-shrink-0" data-mock="true">
+                            <div class="flex items-center mb-4">
+                                <div class="flex space-x-1">
+                                    <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                </div>
+                            </div>
+                            <p class="text-foreground mb-4" data-translate="review3Text">"Back to running marathons after my sports injury. Couldn't have done it without their expert guidance and support."</p>
+                            <p class="font-semibold text-muted-foreground" data-translate="review3Author">- Jennifer L.</p>
+                        </div>
+
+                        <div class="bg-card rounded-xl p-6 shadow-md min-w-80 flex-shrink-0" data-mock="true">
+                            <div class="flex items-center mb-4">
+                                <div class="flex space-x-1">
+                                    <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                </div>
+                            </div>
+                            <p class="text-foreground mb-4" data-translate="review4Text">"Professional, clean facility with the latest equipment. The recovery room is amazing for post-workout sessions."</p>
+                            <p class="font-semibold text-muted-foreground" data-translate="review4Author">- David K.</p>
+                        </div>
+
+                        <!-- Duplicated reviews for infinite scroll effect -->
+                        <div class="bg-card rounded-xl p-6 shadow-md min-w-80 flex-shrink-0" data-mock="true">
+                            <div class="flex items-center mb-4">
+                                <div class="flex space-x-1">
+                                    <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                </div>
+                            </div>
+                            <p class="text-foreground mb-4" data-translate="review1Text">"Exceptional care and professionalism. I recovered from my knee injury faster than expected thanks to their personalized treatment plan."</p>
+                            <p class="font-semibold text-muted-foreground" data-translate="review1Author">- Sarah M.</p>
+                        </div>
+
+                        <div class="bg-card rounded-xl p-6 shadow-md min-w-80 flex-shrink-0" data-mock="true">
+                            <div class="flex items-center mb-4">
+                                <div class="flex space-x-1">
+                                    <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                </div>
+                            </div>
+                            <p class="text-foreground mb-4" data-translate="review2Text">"The staff here truly cares about your progress. Modern facilities and evidence-based treatments make all the difference."</p>
+                            <p class="font-semibold text-muted-foreground" data-translate="review2Author">- Mike R.</p>
+                        </div>
+                        <!-- @END_MAP )) -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- @END_COMPONENT: ReviewsCarousel -->
+
+        <!-- STAFF Section -->
+        <!-- @COMPONENT: StaffSection [staff profiles with photos and credentials] -->
+        <section id="staff" class="py-20 bg-background">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6 scroll-reveal" data-translate="staffHeadline">Meet Our Expert Team</h2>
+                    <p class="text-xl text-muted-foreground scroll-reveal" data-translate="staffSubheadline">
+                        Licensed professionals committed to your recovery and wellness
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+                    <!-- Staff Member 1 -->
+                    <div class="bg-card rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 scroll-reveal" data-mock="true">
+                        <!-- Professional headshot of female physiotherapist -->
+                        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400" alt="Dr. Maria Rodriguez" class="w-full h-64 object-cover" />
+                        
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold mb-2" data-translate="staff1Name">Dr. Maria Rodriguez</h3>
+                            <p class="text-primary font-semibold mb-4" data-translate="staff1Title">Lead Physical Therapist, DPT</p>
+                            <p class="text-muted-foreground" data-translate="staff1Bio">
+                                With over 10 years of experience in orthopedic rehabilitation and sports medicine, Dr. Rodriguez specializes in post-surgical recovery and athletic performance optimization.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Staff Member 2 -->
+                    <div class="bg-card rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 scroll-reveal" data-mock="true">
+                        <!-- Professional headshot of male physiotherapist -->
+                        <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400" alt="Dr. James Chen" class="w-full h-64 object-cover" />
+                        
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold mb-2" data-translate="staff2Name">Dr. James Chen</h3>
+                            <p class="text-primary font-semibold mb-4" data-translate="staff2Title">Sports Recovery Specialist, CSCS</p>
+                            <p class="text-muted-foreground" data-translate="staff2Bio">
+                                Dr. Chen brings 8 years of experience working with professional athletes and weekend warriors alike, focusing on injury prevention and performance enhancement.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- @END_COMPONENT: StaffSection -->
+
+        <!-- ABOUT Section -->
+        <!-- @COMPONENT: AboutSection [map, contact info, hours] -->
+        <section id="about" class="py-20 bg-muted/30">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6 scroll-reveal" data-translate="aboutHeadline">Visit Our Clinic</h2>
+                    <p class="text-xl text-muted-foreground scroll-reveal" data-translate="aboutSubheadline">
+                        Conveniently located with modern facilities and flexible hours
+                    </p>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+                    <!-- Map -->
+                    <div class="scroll-reveal">
+                        <div class="bg-card rounded-xl shadow-lg overflow-hidden h-80">
+                            <!-- @IMPLEMENTATION: Replace with actual Google Maps embed -->
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3048.4068!2d-122.084!3d37.422!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzfCsDI1JzE5LjIiTiAxMjLCsDA1JzAyLjQiVw!5e0!3m2!1sen!2sus!4v1234567890"
+                                width="100%" 
+                                height="100%" 
+                                style="border:0;" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade"
+                                data-mock="true"
+                                title="PhysioTherapy Plus Location">
+                            </iframe>
+                        </div>
+                    </div>
+
+                    <!-- Contact Info and Hours -->
+                    <div class="space-y-8 scroll-reveal">
+                        <!-- Contact Information -->
+                        <div class="bg-card rounded-xl p-6 shadow-lg">
+                            <h3 class="text-2xl font-bold mb-6" data-translate="contactInfoTitle">Contact Information</h3>
+                            
+                            <div class="space-y-4">
+                                <div class="flex items-center space-x-3">
+                                    <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                                    </svg>
+                                    <span data-translate="address">123 Wellness Drive, Health City, HC 12345</span>
+                                </div>
+                                
+                                <div class="flex items-center space-x-3">
+                                    <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                                    </svg>
+                                    <a href="tel:+1234567890" class="hover:text-primary transition-colors">(123) 456-7890</a>
+                                </div>
+                                
+                                <div class="flex items-center space-x-3">
+                                    <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                                    </svg>
+                                    <a href="mailto:info@physiotherapyplus.com" class="hover:text-primary transition-colors">info@physiotherapyplus.com</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Hours -->
+                        <div class="bg-card rounded-xl p-6 shadow-lg">
+                            <h3 class="text-2xl font-bold mb-6" data-translate="hoursTitle">Hours of Operation</h3>
+                            
+                            <div class="space-y-3">
+                                <div class="flex justify-between">
+                                    <span class="font-medium" data-translate="monday">Monday</span>
+                                    <span data-translate="mondayHours">8:00 AM - 7:00 PM</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="font-medium" data-translate="tuesday">Tuesday</span>
+                                    <span data-translate="tuesdayHours">8:00 AM - 7:00 PM</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="font-medium" data-translate="wednesday">Wednesday</span>
+                                    <span data-translate="wednesdayHours">8:00 AM - 7:00 PM</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="font-medium" data-translate="thursday">Thursday</span>
+                                    <span data-translate="thursdayHours">8:00 AM - 7:00 PM</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="font-medium" data-translate="friday">Friday</span>
+                                    <span data-translate="fridayHours">8:00 AM - 6:00 PM</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="font-medium" data-translate="saturday">Saturday</span>
+                                    <span data-translate="saturdayHours">9:00 AM - 4:00 PM</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="font-medium" data-translate="sunday">Sunday</span>
+                                    <span data-translate="sundayHours">Closed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- @END_COMPONENT: AboutSection -->
+
+        <!-- CONTACT Form Section -->
+        <!-- @COMPONENT: ContactForm [form validation, concern toggle, submit handling] -->
+        <section id="contact" class="py-20 bg-background">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6 scroll-reveal" data-translate="contactHeadline">Schedule Your Consultation</h2>
+                    <p class="text-xl text-muted-foreground scroll-reveal" data-translate="contactSubheadline">
+                        Take the first step towards recovery and wellness
+                    </p>
+                </div>
+
+                <div class="max-w-2xl mx-auto">
+                    <form id="contact-form" class="bg-card rounded-xl shadow-lg p-8 scroll-reveal" novalidate>
+                        <!-- Full Name -->
+                        <div class="mb-6">
+                            <label for="fullName" class="block text-sm font-medium mb-2" data-translate="fullNameLabel">Full Name *</label>
+                            <input 
+                                type="text" 
+                                id="fullName" 
+                                name="fullName" 
+                                required 
+                                class="w-full px-4 py-3 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-colors"
+                                data-translate-placeholder="fullNamePlaceholder"
+                                placeholder="Enter your full name"
+                            />
+                            <div class="error-message text-destructive text-sm mt-1 hidden" data-translate="fullNameError">Please enter your full name</div>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="mb-6">
+                            <label for="email" class="block text-sm font-medium mb-2" data-translate="emailLabel">Email Address *</label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email" 
+                                required 
+                                class="w-full px-4 py-3 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-colors"
+                                data-translate-placeholder="emailPlaceholder"
+                                placeholder="Enter your email address"
+                            />
+                            <div class="error-message text-destructive text-sm mt-1 hidden" data-translate="emailError">Please enter a valid email address</div>
+                        </div>
+
+                        <!-- Phone -->
+                        <div class="mb-6">
+                            <label for="phone" class="block text-sm font-medium mb-2" data-translate="phoneLabel">Phone Number *</label>
+                            <input 
+                                type="tel" 
+                                id="phone" 
+                                name="phone" 
+                                required 
+                                class="w-full px-4 py-3 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-colors"
+                                data-translate-placeholder="phonePlaceholder"
+                                placeholder="Enter your phone number"
+                            />
+                            <div class="error-message text-destructive text-sm mt-1 hidden" data-translate="phoneError">Please enter your phone number</div>
+                        </div>
+
+                        <!-- Concern Toggle -->
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium mb-4" data-translate="concernLabel">Primary Concern *</label>
+                            <div class="grid grid-cols-2 gap-4">
+                                <button 
+                                    type="button" 
+                                    id="concern-injury" 
+                                    class="concern-btn px-4 py-3 border-2 border-border rounded-lg transition-all duration-200 hover:border-primary focus:outline-none focus:ring-2 focus:ring-ring"
+                                    data-concern="injury"
+                                    data-translate="injuryConcern"
+                                >
+                                    Injury
+                                </button>
+                                <button 
+                                    type="button" 
+                                    id="concern-pain" 
+                                    class="concern-btn px-4 py-3 border-2 border-border rounded-lg transition-all duration-200 hover:border-primary focus:outline-none focus:ring-2 focus:ring-ring"
+                                    data-concern="pain"
+                                    data-translate="painConcern"
+                                >
+                                    Pain
+                                </button>
+                            </div>
+                            <div class="error-message text-destructive text-sm mt-1 hidden" data-translate="concernError">Please select your primary concern</div>
+                        </div>
+
+                        <!-- Message -->
+                        <div class="mb-6">
+                            <label for="message" class="block text-sm font-medium mb-2" data-translate="messageLabel">What's happening? *</label>
+                            <textarea 
+                                id="message" 
+                                name="message" 
+                                required 
+                                rows="4" 
+                                class="w-full px-4 py-3 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-colors resize-vertical"
+                                data-translate-placeholder="messagePlaceholder"
+                                placeholder="Describe your condition, symptoms, or goals..."
+                            ></textarea>
+                            <div class="error-message text-destructive text-sm mt-1 hidden" data-translate="messageError">Please describe your situation</div>
+                        </div>
+
+                        <!-- Agreement Checkbox -->
+                        <div class="mb-8">
+                            <label class="flex items-start space-x-3 cursor-pointer">
+                                <input 
+                                    type="checkbox" 
+                                    id="agreement" 
+                                    name="agreement" 
+                                    required 
+                                    class="mt-1 w-4 h-4 text-primary bg-background border-border rounded focus:ring-2 focus:ring-ring"
+                                />
+                                <span class="text-sm text-muted-foreground" data-translate="agreementText">
+                                    I agree to be contacted by PhysioTherapy Plus regarding my inquiry and understand that message and data rates may apply.
+                                </span>
+                            </label>
+                            <div class="error-message text-destructive text-sm mt-1 hidden" data-translate="agreementError">Please agree to be contacted</div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button 
+                            type="submit" 
+                            id="submit-btn"
+                            disabled
+                            class="w-full bg-primary hover:bg-primary/90 disabled:bg-muted disabled:text-muted-foreground text-primary-foreground py-4 rounded-lg font-semibold transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-primary/30"
+                            data-translate="submitButton"
+                        >
+                            Schedule Consultation
+                        </button>
+
+                        <!-- Success Message -->
+                        <div id="success-message" class="hidden mt-6 p-4 bg-accent/10 border border-accent/20 rounded-lg">
+                            <div class="flex items-center space-x-2">
+                                <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                                </svg>
+                                <p class="text-accent font-medium" data-translate="successMessage">Thank you! We'll contact you within 24 hours to schedule your consultation.</p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <!-- @END_COMPONENT: ContactForm -->
+    </main>
+
+    <!-- Floating CTA Button -->
+    <!-- @COMPONENT: FloatingCTA [sticky bottom-right button] -->
+    <div class="fixed bottom-6 right-6 z-30">
+        <button 
+            id="floating-cta" 
+            class="floating-cta bg-primary hover:bg-primary/90 text-primary-foreground p-4 rounded-full transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-4 focus:ring-primary/30"
+            onclick="scrollToSection('contact')"
+            aria-label="Schedule consultation"
+            title="Schedule Your Consultation"
+        >
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+            </svg>
+        </button>
+    </div>
+    <!-- @END_COMPONENT: FloatingCTA -->
+
+    <!-- JSON-LD Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "@id": "https://physiotherapyplus.com",
+        "name": "PhysioTherapy Plus",
+        "image": "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=630",
+        "description": "Professional physiotherapy clinic offering therapy, recovery, and wellness services.",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "123 Wellness Drive",
+            "addressLocality": "Health City",
+            "addressRegion": "HC",
+            "postalCode": "12345",
+            "addressCountry": "US"
+        },
+        "telephone": "+1234567890",
+        "email": "info@physiotherapyplus.com",
+        "url": "https://physiotherapyplus.com",
+        "openingHours": [
+            "Mo-Th 08:00-19:00",
+            "Fr 08:00-18:00",
+            "Sa 09:00-16:00"
+        ],
+        "priceRange": "$49-$129",
+        "paymentAccepted": "Cash, Credit Card, Insurance"
+    }
+    </script>
+
+    <script>
+    (function() {
+        'use strict';
+
+        // Translations object
+        // @STATE: currentLanguage:string = 'en'
+        const translations = {
+            en: {
+                skipToContent: "Skip to content",
+                clinicName: "PhysioTherapy Plus",
+                navHome: "Home",
+                navProducts: "Services", 
+                navReviews: "Reviews",
+                navStaff: "Staff",
+                navAbout: "About",
+                navContact: "Contact",
+                heroHeadline: "Professional Physical Therapy & Recovery",
+                heroSubheadline: "Expert care for injury recovery, pain management, and athletic performance enhancement",
+                heroCtabutton: "Schedule Your Consultation",
+                productsHeadline: "Our Services",
+                productsSubheadline: "Comprehensive physiotherapy solutions tailored to your recovery and wellness goals",
+                therapyTitle: "Physical Therapy",
+                therapyPrice: "$99/session",
+                therapyDescription: "Personalized treatment plans for injury recovery, movement restoration, and pain relief through evidence-based techniques.",
+                recoveryTitle: "Sports Recovery",
+                recoveryPrice: "$129/session", 
+                recoveryDescription: "Advanced recovery protocols for athletes including massage therapy, stretching, and performance optimization.",
+                recoveryRoomTitle: "Recovery Room Access",
+                recoveryRoomPrice: "$49/hour",
+                recoveryRoomDescription: "State-of-the-art recovery facilities with compression therapy, infrared sauna, and relaxation equipment.",
+                learnMore: "Learn More",
+                reviewsHeadline: "What Our Patients Say",
+                reviewsSubheadline: "Real stories from real people who've experienced our care",
+                review1Text: ""Exceptional care and professionalism. I recovered from my knee injury faster than expected thanks to their personalized treatment plan."",
+                review1Author: "- Sarah M.",
+                review2Text: ""The staff here truly cares about your progress. Modern facilities and evidence-based treatments make all the difference."",
+                review2Author: "- Mike R.",
+                review3Text: ""Back to running marathons after my sports injury. Couldn't have done it without their expert guidance and support."",
+                review3Author: "- Jennifer L.",
+                review4Text: ""Professional, clean facility with the latest equipment. The recovery room is amazing for post-workout sessions."",
+                review4Author: "- David K.",
+                staffHeadline: "Meet Our Expert Team",
+                staffSubheadline: "Licensed professionals committed to your recovery and wellness",
+                staff1Name: "Dr. Maria Rodriguez",
+                staff1Title: "Lead Physical Therapist, DPT",
+                staff1Bio: "With over 10 years of experience in orthopedic rehabilitation and sports medicine, Dr. Rodriguez specializes in post-surgical recovery and athletic performance optimization.",
+                staff2Name: "Dr. James Chen",
+                staff2Title: "Sports Recovery Specialist, CSCS",
+                staff2Bio: "Dr. Chen brings 8 years of experience working with professional athletes and weekend warriors alike, focusing on injury prevention and performance enhancement.",
+                aboutHeadline: "Visit Our Clinic",
+                aboutSubheadline: "Conveniently located with modern facilities and flexible hours",
+                contactInfoTitle: "Contact Information",
+                address: "123 Wellness Drive, Health City, HC 12345",
+                hoursTitle: "Hours of Operation",
+                monday: "Monday",
+                mondayHours: "8:00 AM - 7:00 PM",
+                tuesday: "Tuesday", 
+                tuesdayHours: "8:00 AM - 7:00 PM",
+                wednesday: "Wednesday",
+                wednesdayHours: "8:00 AM - 7:00 PM",
+                thursday: "Thursday",
+                thursdayHours: "8:00 AM - 7:00 PM",
+                friday: "Friday",
+                fridayHours: "8:00 AM - 6:00 PM",
+                saturday: "Saturday",
+                saturdayHours: "9:00 AM - 4:00 PM",
+                sunday: "Sunday",
+                sundayHours: "Closed",
+                contactHeadline: "Schedule Your Consultation",
+                contactSubheadline: "Take the first step towards recovery and wellness",
+                fullNameLabel: "Full Name *",
+                fullNamePlaceholder: "Enter your full name",
+                fullNameError: "Please enter your full name",
+                emailLabel: "Email Address *",
+                emailPlaceholder: "Enter your email address",
+                emailError: "Please enter a valid email address",
+                phoneLabel: "Phone Number *",
+                phonePlaceholder: "Enter your phone number",
+                phoneError: "Please enter your phone number",
+                concernLabel: "Primary Concern *",
+                injuryConcern: "Injury",
+                painConcern: "Pain",
+                concernError: "Please select your primary concern",
+                messageLabel: "What's happening? *",
+                messagePlaceholder: "Describe your condition, symptoms, or goals...",
+                messageError: "Please describe your situation",
+                agreementText: "I agree to be contacted by PhysioTherapy Plus regarding my inquiry and understand that message and data rates may apply.",
+                agreementError: "Please agree to be contacted",
+                submitButton: "Schedule Consultation",
+                successMessage: "Thank you! We'll contact you within 24 hours to schedule your consultation."
+            },
+            es: {
+                skipToContent: "Saltar al contenido",
+                clinicName: "PhysioTherapy Plus",
+                navHome: "Inicio",
+                navProducts: "Servicios",
+                navReviews: "Reseñas", 
+                navStaff: "Personal",
+                navAbout: "Acerca de",
+                navContact: "Contacto",
+                heroHeadline: "Fisioterapia y Recuperación Profesional",
+                heroSubheadline: "Atención experta para recuperación de lesiones, manejo del dolor y mejora del rendimiento atlético",
+                heroCtabutton: "Programe Su Consulta",
+                productsHeadline: "Nuestros Servicios",
+                productsSubheadline: "Soluciones integrales de fisioterapia adaptadas a sus objetivos de recuperación y bienestar",
+                therapyTitle: "Fisioterapia",
+                therapyPrice: "$99/sesión",
+                therapyDescription: "Planes de tratamiento personalizados para recuperación de lesiones, restauración del movimiento y alivio del dolor a través de técnicas basadas en evidencia.",
+                recoveryTitle: "Recuperación Deportiva",
+                recoveryPrice: "$129/sesión",
+                recoveryDescription: "Protocolos avanzados de recuperación para atletas incluyendo terapia de masajes, estiramientos y optimización del rendimiento.",
+                recoveryRoomTitle: "Acceso a Sala de Recuperación",
+                recoveryRoomPrice: "$49/hora",
+                recoveryRoomDescription: "Instalaciones de recuperación de última generación con terapia de compresión, sauna infrarroja y equipos de relajación.",
+                learnMore: "Más Información",
+                reviewsHeadline: "Lo Que Dicen Nuestros Pacientes",
+                reviewsSubheadline: "Historias reales de personas reales que han experimentado nuestro cuidado",
+                review1Text: ""Atención excepcional y profesionalismo. Me recuperé de mi lesión de rodilla más rápido de lo esperado gracias a su plan de tratamiento personalizado."",
+                review1Author: "- Sarah M.",
+                review2Text: ""El personal aquí realmente se preocupa por tu progreso. Las instalaciones modernas y los tratamientos basados en evidencia hacen toda la diferencia."",
+                review2Author: "- Mike R.",
+                review3Text: ""De vuelta a correr maratones después de mi lesión deportiva. No podría haberlo hecho sin su orientación experta y apoyo."",
+                review3Author: "- Jennifer L.",
+                review4Text: ""Instalación profesional y limpia con el último equipo. La sala de recuperación es increíble para sesiones post-entrenamiento."",
+                review4Author: "- David K.",
+                staffHeadline: "Conozca Nuestro Equipo Experto",
+                staffSubheadline: "Profesionales licenciados comprometidos con su recuperación y bienestar",
+                staff1Name: "Dra. Maria Rodriguez",
+                staff1Title: "Fisioterapeuta Principal, DPT",
+                staff1Bio: "Con más de 10 años de experiencia en rehabilitación ortopédica y medicina deportiva, la Dra. Rodriguez se especializa en recuperación post-quirúrgica y optimización del rendimiento atlético.",
+                staff2Name: "Dr. James Chen",
+                staff2Title: "Especialista en Recuperación Deportiva, CSCS",
+                staff2Bio: "El Dr. Chen aporta 8 años de experiencia trabajando con atletas profesionales y guerreros de fin de semana por igual, enfocándose en prevención de lesiones y mejora del rendimiento.",
+                aboutHeadline: "Visite Nuestra Clínica",
+                aboutSubheadline: "Convenientemente ubicada con instalaciones modernas y horarios flexibles",
+                contactInfoTitle: "Información de Contacto",
+                address: "123 Wellness Drive, Health City, HC 12345",
+                hoursTitle: "Horarios de Atención",
+                monday: "Lunes",
+                mondayHours: "8:00 AM - 7:00 PM",
+                tuesday: "Martes",
+                tuesdayHours: "8:00 AM - 7:00 PM", 
+                wednesday: "Miércoles",
+                wednesdayHours: "8:00 AM - 7:00 PM",
+                thursday: "Jueves",
+                thursdayHours: "8:00 AM - 7:00 PM",
+                friday: "Viernes",
+                fridayHours: "8:00 AM - 6:00 PM",
+                saturday: "Sábado",
+                saturdayHours: "9:00 AM - 4:00 PM",
+                sunday: "Domingo",
+                sundayHours: "Cerrado",
+                contactHeadline: "Programe Su Consulta",
+                contactSubheadline: "Dé el primer paso hacia la recuperación y el bienestar",
+                fullNameLabel: "Nombre Completo *",
+                fullNamePlaceholder: "Ingrese su nombre completo",
+                fullNameError: "Por favor ingrese su nombre completo",
+                emailLabel: "Dirección de Correo *",
+                emailPlaceholder: "Ingrese su dirección de correo",
+                emailError: "Por favor ingrese una dirección de correo válida",
+                phoneLabel: "Número de Teléfono *",
+                phonePlaceholder: "Ingrese su número de teléfono",
+                phoneError: "Por favor ingrese su número de teléfono",
+                concernLabel: "Preocupación Principal *",
+                injuryConcern: "Lesión",
+                painConcern: "Dolor",
+                concernError: "Por favor seleccione su preocupación principal",
+                messageLabel: "¿Qué está pasando? *",
+                messagePlaceholder: "Describa su condición, síntomas o objetivos...",
+                messageError: "Por favor describa su situación",
+                agreementText: "Acepto ser contactado por PhysioTherapy Plus con respecto a mi consulta y entiendo que pueden aplicar tarifas de mensajes y datos.",
+                agreementError: "Por favor acepte ser contactado",
+                submitButton: "Programar Consulta",
+                successMessage: "¡Gracias! Nos pondremos en contacto con usted dentro de 24 horas para programar su consulta."
+            }
+        };
+
+        let currentLanguage = 'en';
+        let selectedConcern = null;
+
+        // Initialize page
+        function init() {
+            setupEventListeners();
+            setupFormValidation();
+            setupScrollReveal();
+            setupNavHighlight();
+            updateLanguage(currentLanguage);
+        }
+
+        // Event listeners
+        function setupEventListeners() {
+            // Hamburger menu
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            const sidebar = document.getElementById('sidebar');
+            const sidebarOverlay = document.getElementById('sidebar-overlay');
+            const sidebarClose = document.getElementById('sidebar-close');
+
+            hamburgerBtn?.addEventListener('click', openSidebar);
+            sidebarClose?.addEventListener('click', closeSidebar);
+            sidebarOverlay?.addEventListener('click', closeSidebar);
+
+            // Sidebar navigation links
+            document.querySelectorAll('.sidebar-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const target = link.getAttribute('href');
+                    scrollToSection(target.replace('#', ''));
+                    closeSidebar();
+                });
+            });
+
+            // Desktop navigation links  
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const target = link.getAttribute('href');
+                    scrollToSection(target.replace('#', ''));
+                });
+            });
+
+            // Language switcher
+            document.querySelectorAll('.language-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const lang = btn.getAttribute('data-lang');
+                    switchLanguage(lang);
+                });
+            });
+
+            // Concern buttons
+            document.querySelectorAll('.concern-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    selectConcern(btn.getAttribute('data-concern'));
+                });
+            });
+
+            // Keyboard navigation for sidebar
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !sidebar.classList.contains('-translate-x-full')) {
+                    closeSidebar();
+                }
+            });
+        }
+
+        // Sidebar functions
+        function openSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            
+            sidebar.classList.remove('-translate-x-full');
+            overlay.classList.remove('hidden');
+            hamburgerBtn.setAttribute('aria-expanded', 'true');
+            
+            // Focus first link
+            const firstLink = sidebar.querySelector('.sidebar-link');
+            firstLink?.focus();
+        }
+
+        function closeSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            
+            sidebar.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+            hamburgerBtn.setAttribute('aria-expanded', 'false');
+            hamburgerBtn.focus();
+        }
+
+        // Smooth scroll function
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                const headerHeight = 80; // Account for sticky header
+                const targetPosition = section.offsetTop - headerHeight;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // Make scrollToSection available globally
+        window.scrollToSection = scrollToSection;
+
+        // Language switching
+        function switchLanguage(lang) {
+            if (lang !== currentLanguage) {
+                currentLanguage = lang;
+                updateLanguage(lang);
+                
+                // Update language button states
+                document.querySelectorAll('.language-btn').forEach(btn => {
+                    btn.classList.remove('active', 'bg-primary', 'text-primary-foreground');
+                    if (btn.getAttribute('data-lang') === lang) {
+                        btn.classList.add('active', 'bg-primary', 'text-primary-foreground');
+                    }
+                });
+            }
+        }
+
+        function updateLanguage(lang) {
+            const texts = translations[lang];
+            
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (texts[key]) {
+                    element.textContent = texts[key];
+                }
+            });
+
+            document.querySelectorAll('[data-translate-placeholder]').forEach(element => {
+                const key = element.getAttribute('data-translate-placeholder');
+                if (texts[key]) {
+                    element.placeholder = texts[key];
+                }
+            });
+        }
+
+        // Concern selection
+        function selectConcern(concern) {
+            selectedConcern = concern;
+            
+            document.querySelectorAll('.concern-btn').forEach(btn => {
+                btn.classList.remove('border-primary', 'bg-primary/10', 'text-primary');
+                btn.classList.add('border-border');
+            });
+            
+            const selectedBtn = document.querySelector(`[data-concern="${concern}"]`);
+            selectedBtn.classList.remove('border-border');
+            selectedBtn.classList.add('border-primary', 'bg-primary/10', 'text-primary');
+            
+            validateForm();
+        }
+
+        // Form validation
+        function setupFormValidation() {
+            const form = document.getElementById('contact-form');
+            const submitBtn = document.getElementById('submit-btn');
+            
+            // Add input event listeners
+            form.querySelectorAll('input, textarea').forEach(input => {
+                input.addEventListener('input', validateForm);
+                input.addEventListener('blur', () => validateField(input));
+            });
+
+            form.addEventListener('submit', handleSubmit);
+        }
+
+        function validateField(field) {
+            const value = field.value.trim();
+            const fieldName = field.name;
+            let isValid = true;
+            let errorMessage = '';
+
+            switch (fieldName) {
+                case 'fullName':
+                    isValid = value.length >= 2;
+                    errorMessage = translations[currentLanguage].fullNameError;
+                    break;
+                case 'email':
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    isValid = emailRegex.test(value);
+                    errorMessage = translations[currentLanguage].emailError;
+                    break;
+                case 'phone':
+                    const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+                    isValid = phoneRegex.test(value.replace(/[\s\-\(\)]/g, ''));
+                    errorMessage = translations[currentLanguage].phoneError;
+                    break;
+                case 'message':
+                    isValid = value.length >= 10;
+                    errorMessage = translations[currentLanguage].messageError;
+                    break;
+            }
+
+            const errorDiv = field.parentNode.querySelector('.error-message');
+            if (isValid) {
+                field.classList.remove('border-destructive');
+                errorDiv?.classList.add('hidden');
+            } else {
+                field.classList.add('border-destructive');
+                if (errorDiv) {
+                    errorDiv.textContent = errorMessage;
+                    errorDiv.classList.remove('hidden');
+                }
+            }
+
+            return isValid;
+        }
+
+        function validateForm() {
+            const form = document.getElementById('contact-form');
+            const submitBtn = document.getElementById('submit-btn');
+            
+            const fullName = form.querySelector('#fullName').value.trim();
+            const email = form.querySelector('#email').value.trim();
+            const phone = form.querySelector('#phone').value.trim();
+            const message = form.querySelector('#message').value.trim();
+            const agreement = form.querySelector('#agreement').checked;
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+
+            const isFormValid = fullName.length >= 2 &&
+                              emailRegex.test(email) &&
+                              phoneRegex.test(phone.replace(/[\s\-\(\)]/g, '')) &&
+                              message.length >= 10 &&
+                              selectedConcern &&
+                              agreement;
+
+            submitBtn.disabled = !isFormValid;
+            
+            return isFormValid;
+        }
+
+        function handleSubmit(e) {
+            e.preventDefault();
+            
+            // Validate all fields
+            const form = e.target;
+            let allValid = true;
+            
+            form.querySelectorAll('input[required], textarea[required]').forEach(field => {
+                if (!validateField(field)) {
+                    allValid = false;
+                }
+            });
+
+            // Validate concern selection
+            if (!selectedConcern) {
+                const concernError = document.querySelector('[data-translate="concernError"]');
+                concernError.classList.remove('hidden');
+                allValid = false;
+            }
+
+            // Validate agreement
+            const agreement = form.querySelector('#agreement');
+            if (!agreement.checked) {
+                const agreementError = agreement.parentNode.parentNode.querySelector('.error-message');
+                agreementError.classList.remove('hidden');
+                allValid = false;
+            }
+
+            if (!allValid) return;
+
+            // Prepare form data
+            const formData = {
+                fullName: form.querySelector('#fullName').value.trim(),
+                email: form.querySelector('#email').value.trim(),
+                phone: form.querySelector('#phone').value.trim(),
+                concern: selectedConcern,
+                message: form.querySelector('#message').value.trim(),
+                language: currentLanguage,
+                timestamp: new Date().toISOString()
+            };
+
+            // TODO: Implement form submission to backend
+            console.log('Form submission data:', formData);
+
+            // Show success message
+            const successMessage = document.getElementById('success-message');
+            successMessage.classList.remove('hidden');
+            
+            // Reset form
+            form.reset();
+            selectedConcern = null;
+            document.querySelectorAll('.concern-btn').forEach(btn => {
+                btn.classList.remove('border-primary', 'bg-primary/10', 'text-primary');
+                btn.classList.add('border-border');
+            });
+            
+            // Scroll to success message
+            successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // Scroll reveal animation
+        function setupScrollReveal() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            document.querySelectorAll('.scroll-reveal').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // Navigation highlight on scroll
+        function setupNavHighlight() {
+            const sections = ['home', 'products', 'reviews', 'staff', 'about', 'contact'];
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const sectionId = entry.target.id;
+                        
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${sectionId}`) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, {
+                threshold: 0.3,
+                rootMargin: '-80px 0px -50% 0px'
+            });
+
+            sections.forEach(sectionId => {
+                const section = document.getElementById(sectionId);
+                if (section) {
+                    observer.observe(section);
+                }
+            });
+        }
+
+        // Initialize when DOM is loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+    })();
+    </script>
+</body>
+</html>
