@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.env
+.env.*
+/.idea/
+.vscode/
+.DS_Store
+/*.log
+RecipeFinder/.local/
+RecipeFinder/client/node_modules/
+RecipeFinder/client/dist/
