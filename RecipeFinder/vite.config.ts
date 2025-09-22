@@ -33,6 +33,11 @@ export default defineConfig({
       strict: true,
       deny: ["**/.*"],
     },
-  port: 3005,
+  // allow binding to network so the dev server is reachable from other devices on the LAN
+  host: true,
+    port: 3005,
+    proxy: {
+      '/dynamo': 'http://localhost:3000'
+    }
   },
 });

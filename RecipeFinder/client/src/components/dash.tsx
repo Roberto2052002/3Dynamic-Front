@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Search, ChevronDown, ChevronUp } from 'lucide-react';
 import Layout from './layout';
 // optional backend adapter — set VITE_USE_API=true to enable (use a Vite env var)
@@ -11,7 +11,9 @@ type Submission = {
   email: string;
   phone?: string;
   message?: string;
-  createdAt: string; // ISO string
+  isInjuredOrInPain?: boolean;
+  createdAt?: string; // ISO string, optional
+  date?: string;      // ISO string, optional
 };
 
 const MOCK: Submission[] = [];
@@ -21,53 +23,73 @@ export default function DashPage() {
   const [sortOldestFirst, setSortOldestFirst] = useState(true);
   const [page, setPage] = useState(1);
   const [remoteItems, setRemoteItems] = useState<Submission[] | null>(null);
-  const pageSize = 11;
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    const source = remoteItems ?? MOCK;
-    let list = source.filter(s =>
-      s.name.toLowerCase().includes(q) ||
-      s.email.toLowerCase().includes(q) ||
-      (s.phone || '').toLowerCase().includes(q) ||
-      (s.message || '').toLowerCase().includes(q)
-    );
+  // Cursor pagination: startKeys[0] === null => first page; startKeys[1] is the startKey for page 2, etc.
+  const [startKeys, setStartKeys] = useState<Array<string | null>>([null]);
+  const startKeysRef = useRef(startKeys);
+  useEffect(() => { startKeysRef.current = startKeys; }, [startKeys]);
 
-    list = list.sort((a, b) => {
-      const ta = new Date(a.createdAt).getTime();
-      const tb = new Date(b.createdAt).getTime();
-      return sortOldestFirst ? ta - tb : tb - ta;
-    });
+  const [hasNextPage, setHasNextPage] = useState(false);
+  const PAGE_SIZE = 10; // keep in sync with backend
+  const [totalPages, setTotalPages] = useState<number | null>(null);
 
-    return list;
-  }, [query, sortOldestFirst, remoteItems]);
-
-  // Reset to first page when filters change
-  React.useEffect(() => {
+  // When sort or query change, reset pagination
+  useEffect(() => {
     setPage(1);
+    setStartKeys([null]);
+    setRemoteItems(null);
   }, [query, sortOldestFirst]);
 
-  const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
-
-  // Clamp page if filtered items shrink
-  React.useEffect(() => {
-    if (page > totalPages) setPage(totalPages);
-  }, [page, totalPages]);
-
-  const paginated = React.useMemo(() => {
-    const start = (page - 1) * pageSize;
-    return filtered.slice(start, start + pageSize);
-  }, [filtered, page]);
-
-  // Backend adapter disabled for now — keep dashboard local/mock-only.
+  // Fetch submissions from backend (cursor pagination)
   useEffect(() => {
-    console.log('DashPage: backend calls disabled; using MOCK data');
-    // If you later want to re-enable API calls, restore the dynamic import flow here
-  }, []);
+    let cancelled = false;
+    setLoading(true);
+    setError(null);
+
+    const sortParam = sortOldestFirst ? 'oldest' : 'newest';
+    const qParam = query.trim();
+    const startKey = startKeysRef.current[page - 1] ?? null;
+    const url = `/dynamo/clients?sort=${sortParam}${qParam ? `&q=${encodeURIComponent(qParam)}` : ''}${startKey ? `&startKey=${encodeURIComponent(startKey)}` : ''}`;
+
+    fetch(url)
+      .then(res => {
+        if (!res.ok) throw new Error('Failed to fetch');
+        return res.json();
+      })
+      .then(data => {
+        if (cancelled) return;
+        const items = Array.isArray(data) ? data : data.items ?? [];
+        setRemoteItems(items);
+
+        const next = data && (data.nextPageKey ?? data.lastEvaluatedKey ?? null);
+        setHasNextPage(!!next);
+        setTotalPages(typeof data?.totalPages === 'number' ? data.totalPages : null);
+
+        setStartKeys(prev => {
+          // keep entries up to current page
+          const copy = prev.slice(0, page);
+          if (next) {
+            copy[page] = next;
+          }
+          return copy;
+        });
+      })
+      .catch(err => {
+        if (cancelled) return;
+        console.error('Error fetching /dynamo/clients:', err);
+        setError('Failed to fetch submissions');
+        setRemoteItems([]);
+      })
+      .finally(() => { if (!cancelled) setLoading(false); });
+
+    return () => { cancelled = true; };
+  }, [sortOldestFirst, query, page]);
 
   return (
     <Layout>
-  <div className="max-w-7xl mx-auto p-6 mt-12 md:mt-20 bg-background text-foreground">
+  <div className="max-w-8xl mx-auto p-10 mt-12 md:mt-30 bg-background text-foreground">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold">Submissions</h1>
 
@@ -100,23 +122,33 @@ export default function DashPage() {
               <th className="text-left px-4 py-3">Name</th>
               <th className="text-left px-4 py-3">Email</th>
               <th className="text-left px-4 py-3">Phone</th>
+              <th className="text-left px-4 py-3">Type</th>
               <th className="text-left px-4 py-3">Submitted</th>
               <th className="text-left px-4 py-3">Message</th>
             </tr>
           </thead>
 
           <tbody>
-            {filtered.length === 0 ? (
+            {loading ? (
               <tr>
-                <td colSpan={5} className="p-6 text-center text-muted-foreground">No submissions found.</td>
+                <td colSpan={6} className="p-6 text-center text-muted-foreground">Loading...</td>
+              </tr>
+            ) : error ? (
+              <tr>
+                <td colSpan={6} className="p-6 text-center text-destructive">{error}</td>
+              </tr>
+            ) : !remoteItems || remoteItems.length === 0 ? (
+              <tr>
+                <td colSpan={6} className="p-6 text-center text-muted-foreground">No submissions found.</td>
               </tr>
             ) : (
-              paginated.map(sub => (
+              remoteItems.map((sub: Submission) => (
                 <tr key={sub.id} className="border-t border-border hover:bg-muted transition-colors align-top">
                   <td className="px-4 py-3 align-top">{sub.name}</td>
                   <td className="px-4 py-3 align-top">{sub.email}</td>
                   <td className="px-4 py-3 align-top">{sub.phone}</td>
-                  <td className="px-4 py-3 align-top">{new Date(sub.createdAt).toLocaleString()}</td>
+                  <td className="px-4 py-3 align-top">{sub.isInjuredOrInPain === true ? 'Injury' : sub.isInjuredOrInPain === false ? 'Pain' : '—'}</td>
+                  <td className="px-6 py-4 align-top">{sub.date ? new Date(sub.date).toLocaleDateString() : '—'}</td>
                   <td className="px-4 py-3 text-muted-foreground whitespace-normal break-words max-w-[48rem] align-top">{sub.message}</td>
                 </tr>
               ))
@@ -125,18 +157,13 @@ export default function DashPage() {
         </table>
       </div>
 
-      {/* Pagination controls */}
+      {/* Pagination controls (server cursor pagination) */}
       <div className="flex items-center justify-between mt-4">
-        <div className="text-sm text-muted-foreground">Showing {(page - 1) * pageSize + 1} - {Math.min(page * pageSize, filtered.length)} of {filtered.length}</div>
+        <div className="text-sm text-muted-foreground">{totalPages ? `Page ${page} of ${totalPages}` : `Page ${page}`}</div>
         <div className="flex items-center gap-2">
-          <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1} className="px-3 py-1 rounded-md bg-muted hover:bg-accent transition-colors disabled:opacity-50">Prev</button>
-          {Array.from({ length: totalPages }).map((_, i) => {
-            const pageNum = i + 1;
-            return (
-              <button key={pageNum} onClick={() => setPage(pageNum)} className={`px-3 py-1 rounded-md ${page === pageNum ? 'bg-primary text-primary-foreground' : 'bg-muted hover:bg-accent'}`}>{pageNum}</button>
-            );
-          })}
-          <button onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages} className="px-3 py-1 rounded-md bg-muted hover:bg-accent transition-colors disabled:opacity-50">Next</button>
+          <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1 || loading} className="px-3 py-1 rounded-md bg-muted hover:bg-accent transition-colors disabled:opacity-50">Prev</button>
+          <div className="px-3 py-1 rounded-md bg-card">Page {page}</div>
+          <button onClick={() => { if (hasNextPage) setPage(p => p + 1); }} disabled={!hasNextPage || loading} className="px-3 py-1 rounded-md bg-muted hover:bg-accent transition-colors disabled:opacity-50">Next</button>
         </div>
       </div>
       </div>

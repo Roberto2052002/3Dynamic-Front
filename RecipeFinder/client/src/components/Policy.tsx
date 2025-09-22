@@ -49,48 +49,54 @@ const translations = {
 }
 };
 
-function Policy() {
+function PolicyContent() {
   const { currentLanguage } = useLanguage();
   const t = translations[currentLanguage as 'en' | 'es'];
 
   return (
-    <Layout>
-  <div className="max-w-4xl mx-auto p-6 mt-12 md:mt-20 bg-background text-foreground">
-        <div className="mb-6">
-          <h1 className="text-3xl font-bold">{t.title}</h1>
+    <div className="max-w-4xl mx-auto p-6 mt-12 md:mt-20 bg-background text-foreground">
+      <div className="mb-6">
+        <h1 className="text-3xl font-bold">{t.title}</h1>
+      </div>
+      <div className="space-y-6">
+        <div className="bg-card p-6 rounded-lg shadow">
+          <h2 className="text-xl font-semibold mb-3">{t.generalTitle}</h2>
+          <p className="text-muted-foreground leading-relaxed">{t.general}</p>
         </div>
-        <div className="space-y-6">
-          <div className="bg-card p-6 rounded-lg shadow">
-            <h2 className="text-xl font-semibold mb-3">{t.generalTitle}</h2>
-            <p className="text-muted-foreground leading-relaxed">{t.general}</p>
+        <div className="bg-card p-6 rounded-lg shadow">
+          <h2 className="text-xl font-semibold mb-3">{t.cancelTitle}</h2>
+          <p className="text-muted-foreground leading-relaxed">{t.cancel}</p>
+          <div className="mt-4">
+            <h3 className="font-semibold">{t.packagesTitle}</h3>
+            <ul className="list-disc list-inside text-muted-foreground mt-2">
+              {t.packages.map((p, i) => (
+                <li key={i}>{p}</li>
+              ))}
+            </ul>
           </div>
-          <div className="bg-card p-6 rounded-lg shadow">
-            <h2 className="text-xl font-semibold mb-3">{t.cancelTitle}</h2>
-            <p className="text-muted-foreground leading-relaxed">{t.cancel}</p>
-            <div className="mt-4">
-              <h3 className="font-semibold">{t.packagesTitle}</h3>
-              <ul className="list-disc list-inside text-muted-foreground mt-2">
-                {t.packages.map((p, i) => (
-                  <li key={i}>{p}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
-          <div className="bg-card p-6 rounded-lg shadow">
-            <h2 className="text-xl font-semibold mb-3">{t.confidentialityTitle}</h2>
-            <p className="text-muted-foreground leading-relaxed">{t.confidentiality}</p>
-          </div>
-          <div className="bg-card p-6 rounded-lg shadow">
-            <h2 className="text-xl font-semibold mb-3">{t.mediaTitle}</h2>
-            <p className="text-muted-foreground leading-relaxed">{t.media1}</p>
-            <p className="text-muted-foreground leading-relaxed mt-3">{t.media2}</p>
-          </div>
-          <div className="bg-card p-6 rounded-lg shadow">
-            <h2 className="text-xl font-semibold mb-3">{t.indemnificationTitle}</h2>
-            <p className="text-muted-foreground leading-relaxed">{t.indemnification}</p>
-          </div>
+        </div>
+        <div className="bg-card p-6 rounded-lg shadow">
+          <h2 className="text-xl font-semibold mb-3">{t.confidentialityTitle}</h2>
+          <p className="text-muted-foreground leading-relaxed">{t.confidentiality}</p>
+        </div>
+        <div className="bg-card p-6 rounded-lg shadow">
+          <h2 className="text-xl font-semibold mb-3">{t.mediaTitle}</h2>
+          <p className="text-muted-foreground leading-relaxed">{t.media1}</p>
+          <p className="text-muted-foreground leading-relaxed mt-3">{t.media2}</p>
+        </div>
+        <div className="bg-card p-6 rounded-lg shadow">
+          <h2 className="text-xl font-semibold mb-3">{t.indemnificationTitle}</h2>
+          <p className="text-muted-foreground leading-relaxed">{t.indemnification}</p>
         </div>
       </div>
+    </div>
+  );
+}
+
+function Policy() {
+  return (
+    <Layout>
+      <PolicyContent />
     </Layout>
   );
 }

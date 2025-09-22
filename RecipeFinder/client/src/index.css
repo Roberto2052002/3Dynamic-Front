@@ -121,6 +121,37 @@
   .hover-pause:hover {
     animation-play-state: paused;
   }
+
+  /* Improve rendering of carousel cards on mobile to avoid text vibration */
+  .carousel-card {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+  }
+
+  /* GPU hint for horizontal track to avoid teleport and provide smoother transforms */
+  .carousel-container > .flex {
+    will-change: transform;
+    transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  }
+
+  /* While moving, reduce font smoothing to avoid jitter; restored when paused */
+  .carousel-container > .flex.is-moving .carousel-card,
+  .carousel-container > .flex.is-moving p,
+  .carousel-container > .flex.is-moving span {
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: auto;
+    text-rendering: geometricPrecision;
+    will-change: transform;
+  }
+
+  .carousel-container > .flex:not(.is-moving) .carousel-card {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 }
 
 @keyframes scrollHorizontal {
@@ -129,6 +160,11 @@
 }
 
 @keyframes pulseGlow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.4); }
-  50% { box-shadow: 0 0 0 10px rgba(14, 165, 233, 0); }
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.65);
+  }
+  50% {
+    /* larger, more visible spread in the middle */
+    box-shadow: 0 0 28px 14px rgba(14, 165, 233, 0.28);
+  }
 }

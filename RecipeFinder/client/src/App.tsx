@@ -4,6 +4,7 @@ import PhysioLanding from "./components/PhysioLanding";
 import Policy from "./components/Policy";
 import DashPage from "./components/dash";
 import { LanguageProvider } from "./hooks/useLanguage";
+import { Toaster } from "./components/ui/toaster";
 import "./index.css";
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
           <Route path="/policy" element={<Policy />} />
           <Route path="/dash" element={<DashPage />} />
         </Routes>
+  <Toaster />
       </BrowserRouter>
     </LanguageProvider>
   );

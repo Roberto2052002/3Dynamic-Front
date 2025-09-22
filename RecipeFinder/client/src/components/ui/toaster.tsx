@@ -1,3 +1,4 @@
+import * as React from "react"
 import { useToast } from "@/hooks/use-toast"
 import {
   Toast,
@@ -10,6 +11,14 @@ import {
 
 export function Toaster() {
   const { toasts } = useToast()
+
+  React.useEffect(() => {
+    try {
+      console.log('[Toaster] toasts count:', toasts.length, 'toasts:', toasts)
+    } catch (e) {
+      // ignore
+    }
+  }, [toasts])
 
   return (
     <ToastProvider>
